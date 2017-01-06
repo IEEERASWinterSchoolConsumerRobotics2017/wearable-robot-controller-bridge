@@ -109,7 +109,8 @@ def udpClientThread(conn):
   
   
   robot_message = "no"
-  UDP_IP = "104.131.47.73"
+  UDP_IP = "10.18.81.7"
+  #UDP_IP = "104.131.47.73"
   UDP_PORT = 2362
 
   sock = socket.socket(socket.AF_INET, # Internet
