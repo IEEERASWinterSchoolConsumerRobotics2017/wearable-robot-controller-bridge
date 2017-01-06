@@ -6,6 +6,20 @@ import time
 HOST = ''   # Symbolic name meaning all available interfaces
 PORT = 8889 # Arbitrary non-privileged port
 PORT_HEART = 8890 # heart rate port
+PORT_LIGHTS = 8891
+PORT_HOME = 8892
+PORT_THERMOSTAT = 8893
+PORT_SMOKE = 8894
+PORT_CAMERA = 8895
+PORT_ROBOT = 8896
+
+ports = [PORT, 
+         PORT_HEART, 
+         PORT_LIGHTS,
+         PORT_THERMOSTAT,
+         PORT_SMOKE,
+         PORT_CAMERA,
+         PORT_ROBOT]
 
 robot_message = "none"
 
@@ -40,15 +54,40 @@ def connectTCP(soc, the_port):
   print 'Socket now listening'
   return soc
 
- 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s_heart = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s = connectTCP(s, PORT)
-s_heart = connectTCP(s_heart, PORT_HEART)
+print "1" 
+s            = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print "2" 
+s_heart      = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print "3" 
+s_lights     = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print "4" 
+s_thermostat = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print "5" 
+s_smoke      = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print "6" 
+s_camera     = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print "7" 
+s_robot      = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print "8" 
+
+print "11" 
+s            = connectTCP(s, PORT)
+print "22" 
+s_heart      = connectTCP(s_heart, PORT_HEART)
+print "33" 
+s_lights     = connectTCP(s_lights, PORT_LIGHTS)
+print "44" 
+s_thermostat = connectTCP(s_thermostat, PORT_THERMOSTAT)
+print "55" 
+s_smoke      = connectTCP(s_smoke, PORT_SMOKE)
+print "66" 
+s_camera     = connectTCP(s_camera, PORT_CAMERA)
+print "77" 
+s_robot      = connectTCP(s_robot, PORT_ROBOT)
+print "88" 
 
 
- 
 #Function for handling connections. This will be used to create threads
 def clientthread(conn):
     try:
@@ -77,7 +116,7 @@ def clientthread(conn):
               if len(ds) >=3:
                 if ds[2] == message_rate:
                   sendHeartRate(conn)
-                  
+                          
         ##conn.sendall(robot_message)
         #conn.sendall(reply)
     except:
@@ -164,10 +203,36 @@ def heartThread():
   print 'exit heart'
   s_heart.close()
 
-print 'start threads'
+def listenThread(ss):
+  print 'enter heart'
+  while 1:
+    #wait to accept a connection - blocking call
+    conn_heart, addr = ss.accept()
+
+    print 'Connected with ' + addr[0] + ':' + str(addr[1])
+
+    #start new thread takes 1st argument as a function name to be run, second is the tuple of arguments to the function.
+    start_new_thread(clientthread ,(conn_heart,))
+  print 'exit heart'
+  ss.close()
+
+print 'start thread - heart'
 start_new_thread(heartThread ,())
-print 'start threads'
+print 'start thread - joy'
 start_new_thread(joyThread ,())
+print 'start thread - lights'
+start_new_thread(listenThread ,(s_lights,))
+print 'start thread - thermostat'
+start_new_thread(listenThread ,(s_thermostat,))
+print 'start thread - smoke'
+start_new_thread(listenThread ,(s_smoke,))
+print 'start thread - cmaera'
+start_new_thread(listenThread ,(s_camera,))
+print 'start thread - robot'
+start_new_thread(listenThread ,(s_robot,))
+
+
+
 
 while True:
   time.sleep(1)

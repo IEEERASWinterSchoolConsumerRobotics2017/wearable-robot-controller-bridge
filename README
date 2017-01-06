@@ -1,0 +1,103 @@
+<html><body><pre><code>
+Set - Incoming:
+All:               UDP 2362
+
+Set/Req - Incoming/Outgoing:
+WRC/ARC/Joy:       TCP 8889
+   req joy left
+   rep joy left x(%f) y($y)
+
+   req joy right
+   rep joy right x(%f) y($y)
+ 
+Heart Rate:        TCP 8890
+   req heart rate
+   rep rate r(%f)
+
+Lights:            TCP 8891
+   Def: Get brightness
+   req light bright
+   rep light bright v(%f)
+   
+   Def: Set brightness
+   set light bright v(%f)
+   rep ok
+
+   Def: Get color
+   req light color
+   rep light color hue(%f) sat(%f)
+
+   Def: Set color
+   set light color hue(%f) sat(%f)
+   rep ok
+
+Home:              TCP 8892
+   Def: get music genre
+   req music genre
+   rep music genre name(%s)
+
+   Def: set music genre
+   set music genre name(%s)
+   rep ok
+
+   Def: video genre
+   req video genre
+   rep video genre name(%s)
+
+   Def: set video genre
+   set video genre name(%s)
+   rep ok
+
+   Def: get voice command
+   req voice command
+   rep voice command phrase(%s) ffffENDffff
+   
+   Def: set voice command
+   set voice command phrase(%s) ffffENDffff
+   rep ok
+
+Thermostat:         TCP 8893
+   Def: Get temp
+   req thermostat all
+   rep thermostat all set(%f) actual(%f)
+
+   Def: set temp - from thermostat
+   set thermostat actual actual(%f)
+   rep ok
+
+   Def: des temp - user
+   set thermostat des tmp(%f)
+   rep ok
+
+Smoke:              TCP 8894
+   Def: get smoke
+   req smoke
+   rep smoke on/off(%d)
+
+   Def: set smoke
+   set smoke on/off(%d)
+   rep ok
+
+Camera:             TCP 8895
+   Def: get camera action 
+   req camera state camName(%s)
+   rep camera state camName(%s) person(%d) time(%s)
+
+   Def: get camera frame
+   req camera image camName(%s)
+   rep camName(%s) (serialized image data at 360x360 RGB)
+   
+   Def: set camera action 
+   set camera state camName(%s) person(%d) time(%s)
+   rep ok
+
+   Def: get camera frame
+   set camName(%s) (serialized image data at 360x360 RGB)
+   rep ok 
+   
+Robot:              TCP 8896
+   Def: Get item user wants
+   req item des
+   rep item des item(%s)
+   
+</code></pre></body></html>
