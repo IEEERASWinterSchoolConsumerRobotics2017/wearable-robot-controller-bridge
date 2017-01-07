@@ -91,8 +91,8 @@ Camera:             TCP 8895
    set camera state camName(%s) person(%d) time(%s)
    rep ok
 
-   Def: get camera frame
-   set camName(%s) (serialized image data at 360x360 RGB)
+   Def: set camera frame
+   set camera image camName(%s) (serialized image data at 360x360 RGB)
    rep ok 
    
 Robot:              TCP 8896
