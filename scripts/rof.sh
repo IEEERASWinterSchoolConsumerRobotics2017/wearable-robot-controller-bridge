@@ -2,8 +2,8 @@ SCREEN_NAME_BRIDGE='bridge'
 SCREEN_NAME_LIGHTS_HEART='lights-heart'
 StartLights()
 {
-  rm ../lights/*.pyc
-  screen -S $SCREEN_NAME_LIGHTS_HEART -d -m python ../lights/lightsWithHeart.py
+  rm ../lights/demo/*.pyc
+  screen -S $SCREEN_NAME_LIGHTS_HEART -d -m python ../lights/demo/lightsWithHeart.py
 }
 StopLights()
 {

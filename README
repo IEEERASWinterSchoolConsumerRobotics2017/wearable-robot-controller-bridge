@@ -99,5 +99,14 @@ Robot:              TCP 8896
    Def: Get item user wants
    req item des
    rep item des item(%s)
+
+   Def: Guest Entered Room
+   set guest enter time(%s yyyy-mm-dd-hh-mm-ss)
+   rep ok
+
+   Def: Intruder
+   set guest intruder time(%s yyyy-mm-dd-hh-mm-ss)
+   rep ok
+
    
 </code></pre></body></html>

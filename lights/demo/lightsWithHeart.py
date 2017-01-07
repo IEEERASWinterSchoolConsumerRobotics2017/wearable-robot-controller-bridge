@@ -4,7 +4,8 @@ import numpy as np
 
 import socket
 import time
-b = Bridge('192.168.0.105')
+b = Bridge('10.18.81.40')
+#b = Bridge('192.168.0.105')
 time.sleep(1.0)
 b.connect()
 time.sleep(1.0)

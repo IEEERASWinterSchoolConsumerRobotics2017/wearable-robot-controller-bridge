@@ -120,6 +120,12 @@ def clientthread(conn):
               if len(ds) >=3:
                 if ds[2] == message_rate:
                   sendHeartRate(conn)
+            if ds[1] == 'guest':
+              if len(ds) >=3:
+                if ds[2] == 'enter':
+                  sendGuestEnter(conn)
+                if ds[2] == 'intruder':
+                  sendGuestIntruder(conn)
             if ds[1] == 'light':
               if len(ds) >=3:
                 if ds[2] == 'bright':
@@ -182,6 +188,14 @@ def clientthread(conn):
               if len(ds) >=4:
                 if ds[2] == 'des':
                   setItemDes(conn, ds[3])
+            if ds[1] == 'guest':
+              if len(ds) >=4:
+                if ds[2] == 'enter':
+                  setGuestEnter(conn, ds[3])
+            if ds[1] == 'guest':
+              if len(ds) >=4:
+                if ds[2] == 'intruder':
+                  setGuestIntruder(conn, ds[3])
                           
         ##conn.sendall(robot_message)
         #conn.sendall(reply)
@@ -217,7 +231,7 @@ def sendItem(conn):
   conn.sendall(reply)
 
 music_genre = 'rock'
-def setMusic(conn,):
+def setMusic(conn,val):
   global music_genre
   music_genre = val
   reply = message_rep + ' ' + 'ok'
@@ -230,7 +244,7 @@ def setVideo(conn, val):
   reply = message_rep + ' ' + 'ok'
   conn.sendall(reply)
 
-voice_cmd = 'none'
+voice_cmd = 'cats'
 def setVoice(conn,val):
   global voice_cmd
   voice_cmd = val
@@ -275,13 +289,34 @@ def sSetCameraImage(conn, img):
   reply = message_rep + ' ' + 'ok'
   conn.sendall(reply)
 
-item_des = 'none'
+item_des = 'cats'
 def setItemDes(conn, buff):
   global item_des
   item_des = buff
   reply = message_rep + ' ' + 'ok'
   conn.sendall(reply)
 
+guest_enter = '1978-01-23-23-59-59'
+def setGuestEnter(conn, buff)
+  global guest_enter 
+  guest_enter = buff
+  reply = message_rep + ' ' + 'ok'
+  conn.sendall(reply)
+
+intruder_enter = '1978-01-23-23-59-59'
+def setGuestIntruder(conn, buff)
+  global intruder_enter 
+  intruder_enter = buff
+  reply = message_rep + ' ' + 'ok'
+  conn.sendall(reply)
+
+def sendGuestEnter(conn):
+  reply = message_rep + ' ' + 'guest' + ' ' + 'enter' + ' ' + guest_enter
+  conn.sendall(reply)
+
+def sendGuestIntruder(conn):
+  reply = message_rep + ' ' + 'guest' + ' ' + 'intruder' + ' ' + intruder_enter
+  conn.sendall(reply)
 
 def sendLightBright(conn):
   reply = message_rep + ' ' + 'light' + ' ' + 'bright' + ' ' + str(light_bright)
