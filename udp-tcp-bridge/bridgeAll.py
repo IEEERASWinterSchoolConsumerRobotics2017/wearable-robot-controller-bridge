@@ -297,14 +297,14 @@ def setItemDes(conn, buff):
   conn.sendall(reply)
 
 guest_enter = '1978-01-23-23-59-59'
-def setGuestEnter(conn, buff)
+def setGuestEnter(conn, buff):
   global guest_enter 
   guest_enter = buff
   reply = message_rep + ' ' + 'ok'
   conn.sendall(reply)
 
 intruder_enter = '1978-01-23-23-59-59'
-def setGuestIntruder(conn, buff)
+def setGuestIntruder(conn, buff):
   global intruder_enter 
   intruder_enter = buff
   reply = message_rep + ' ' + 'ok'

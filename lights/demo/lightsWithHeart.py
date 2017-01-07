@@ -21,7 +21,7 @@ the_min = 100
 T = 2.0
 
 while True:
-  host = "104.131.47.73"
+  host = "10.18.81.7"
   port = 8890
      
   mySocket = socket.socket()
@@ -31,13 +31,19 @@ while True:
       message = "req heart rate"
       mySocket.send(message.encode())
       data = mySocket.recv(1024).decode()
+
       #data = mySocket.recv(1024)
       print(data)
       #time.sleep(0.25)
       
       split_data = data.split(" ")
       
-      T = float(split_data[2]) / 60.0 * 2.0
+      bpm = float(split_data[2])
+      if bpm < 30.0:
+        bpm = 30.0
+      if bpm > 200.0:
+        bpm = 200.0
+      T = 60.0 / bpm * 2.0
       print T
       
       b.set_light(bed_left,  'bri', the_max)
@@ -49,4 +55,4 @@ while True:
       b.set_light(bed_right, 'bri', the_min)
       b.set_light(table,     'bri', the_min)
       time.sleep(T/2.0)
-  break
+
