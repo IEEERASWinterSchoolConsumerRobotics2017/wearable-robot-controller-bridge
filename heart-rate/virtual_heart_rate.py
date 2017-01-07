@@ -23,7 +23,8 @@ MESSAGE = "Hello, World!"
 
 
 while True:
-    host = "104.131.47.73"
+    host = "10.18.81.7"
+    #host = "104.131.47.73"
     port = 8890
      
     mySocket = socket.socket()
