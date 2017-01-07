@@ -1,4 +1,14 @@
 SCREEN_NAME_BRIDGE='bridge'
+SCREEN_NAME_LIGHTS_HEART='lights-heart'
+StartLights()
+{
+  rm ../lights/*.pyc
+  screen -S $SCREEN_NAME_LIGHTS_HEART -d -m python ../lights/lightsWithHeart.py
+}
+StopLights()
+{
+  screen -S $SCREEN_NAME_LIGHTS_HEART -p -0 -X quit
+}
 StartBridge()
 {
   # start bridge
@@ -8,6 +18,23 @@ StartBridge()
 StopBridge()
 {
   screen -S $SCREEN_NAME_BRIDGE -p 0 -X quit
+}
+
+Lights()
+{
+  case "$1" in
+    'start' )
+       StartLights
+    ;;
+    'stop' )
+       StopLights
+     ;;
+     * )
+     echo 'Lights - incorrect option'
+     echo 'to start $ rof.sh lights start' 
+     echo 'to stop  $ rof.sh lights stop' 
+     ;;
+  esac
 }
 
 Bridge()
@@ -42,6 +69,11 @@ echo '    bridge               -  udp to tcp bridge'
 echo '                            for server'
 echo '          start          -  starts option'
 echo '          stop           -  stops opton'
+echo '    lights               -  lights with heart' 
+echo '                            beat server'
+echo '          start          -  starts option'
+echo '          stop           -  stops opton'
+echo '----------------------------------------------'
 echo '----------------------------------------------'
 
 
@@ -51,6 +83,9 @@ case "$1" in
 # bridge info
 	'bridge' )
 		Bridge $2
+        ;;
+        'lights' )
+                Lights $2
         ;;
         * )
 		Usage
