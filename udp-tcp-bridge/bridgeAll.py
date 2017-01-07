@@ -244,7 +244,7 @@ def setVideo(conn, val):
   reply = message_rep + ' ' + 'ok'
   conn.sendall(reply)
 
-voice_cmd = 'cats'
+voice_cmd = 'towels'
 def setVoice(conn,val):
   global voice_cmd
   voice_cmd = val
@@ -289,7 +289,7 @@ def sSetCameraImage(conn, img):
   reply = message_rep + ' ' + 'ok'
   conn.sendall(reply)
 
-item_des = 'cats'
+item_des = 'towels'
 def setItemDes(conn, buff):
   global item_des
   item_des = buff
@@ -371,6 +371,13 @@ def udpClientThread(conn):
             if ds[1] == message_right:
               joy_right_x = float(ds[2])
               joy_right_y = float(ds[3])              
+      if ds[0] == 'set':
+        if ds[1] == 'thermostat':
+              if len(ds) >=4:
+                if ds[2] == 'actual':
+                  setThermostatActual(conn, ds[3])
+                if ds[2] == 'des':
+                  setThermostatDes(conn, ds[3])
       print "received message:", data
  except:
   print "Can not connect to UDP, port already open" 
